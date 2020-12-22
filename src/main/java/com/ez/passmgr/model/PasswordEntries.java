@@ -2,21 +2,40 @@ package com.ez.passmgr.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="passwordEntries")
+@Table(name="PASSWORD_ENTRIES")
 public class PasswordEntries {
+	
+	public PasswordEntries() {
+		super();
+	}
+
+	public PasswordEntries(Long id, String username, String password, String title, String url) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.title = title;
+		this.url = url;
+	}
+
 	@Id
+	@Column(name="ID")
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id; //Required by Hibernate but not really needed
-	@Column(nullable=false)
+	@Column(name="USERNAME",nullable=false)
 	private String username;
-	@Column(nullable=false)
+	@Column(name="PASSWORD",nullable=false)
 	private String password;
-	@Column(nullable=false)
+	@Column(name="TITLE",nullable=false)
 	private String title;
+	@Column(name="URL")
 	private String url;
 	
 	@ManyToOne
