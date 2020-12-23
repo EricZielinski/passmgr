@@ -10,7 +10,7 @@ import com.ez.passmgr.service.UserService;
 import com.ez.passmgr.web.dto.UserRegistrationDto;
 
 @Controller
-@RequestMapping("/registration")
+@RequestMapping("/register")
 public class UserRegistrationController {
 	
 	private UserService userService;
@@ -28,12 +28,12 @@ public class UserRegistrationController {
 	
 	@GetMapping
 	public String showRegistrationForm() {
-		return "registration"; //registration.html
+		return "register"; //register.html
 	}
 	
 	@PostMapping
 	public String registerUserAccount(@ModelAttribute("user") UserRegistrationDto registrationDto) {
 		userService.save(registrationDto);
-		return "redirect:/registration?success";
+		return "redirect:/register?success";
 	}
 }
