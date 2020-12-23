@@ -8,77 +8,56 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name="PASSWORD_ENTRIES")
+@RequiredArgsConstructor
+@NoArgsConstructor
 public class PasswordEntries {
 	
-	public PasswordEntries() {
-		super();
-	}
-
-	public PasswordEntries(Long id, String username, String password, String title, String url) {
-		super();
-		this.id = id;
-		this.username = username;
-		this.password = password;
-		this.title = title;
-		this.url = url;
-	}
-
 	@Id
 	@Column(name="ID")
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Getter
 	private Long id; //Required by Hibernate but not really needed
+	
+	
 	@Column(name="USERNAME",nullable=false)
+	@Getter
+	@Setter
+	@NonNull
 	private String username;
+	
+	
 	@Column(name="PASSWORD",nullable=false)
+	@Getter
+	@Setter
+	@NonNull
 	private String password;
+	
+	
 	@Column(name="TITLE",nullable=false)
+	@Getter
+	@Setter
+	@NonNull
 	private String title;
+	
+	
 	@Column(name="URL")
+	@Getter
+	@Setter
+	@NonNull //may change
 	private String url;
 	
+	
 	@ManyToOne
+	@Getter
 	private User user;
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
 
 }

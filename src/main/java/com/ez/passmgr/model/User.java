@@ -17,8 +17,17 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name="USERS")
+/*@Accessors(chain = true)*/
+@RequiredArgsConstructor
+@NoArgsConstructor
 public class User {
 
 	
@@ -29,13 +38,26 @@ public class User {
 			strategy = "org.hibernate.id.UUIDGenerator"
 			)
 	@Column(name="ID", updatable=false, nullable=false)
+	@Getter
 	private UUID id;
+	
+	
 	@Column(name="EMAIL", nullable=false)
+	@Getter
+	@Setter
+	@NonNull
 	private String email;
+	
+	
 	@Column(name="PASSWORD",nullable=false)
+	@Getter
+	@Setter
+	@NonNull
 	private String password;
 	
+	
 	@OneToMany(mappedBy="user") //Tells Hibernate that the mapping will be done by PassWordEntries
+	@Getter
 	private Collection<PasswordEntries> passwordEntries;
 	
 	//fetches the roles whenever we want info about a user
@@ -50,61 +72,9 @@ public class User {
 					name="ROLE_ID",
 					referencedColumnName="id")
 			) //Specifies a unidirectional many-many relationship from user to roles
+	@Getter
+	@NonNull
 	private Collection<Role> roles;
-	
-	
-	public Collection<Role> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(Collection<Role> roles) {
-		this.roles = roles;
-	}
-
-	public User() {
-		super();
-	}
-
-	public User(String email, String password, Collection<Role> roles) {
-		super();
-		this.email = email;
-		this.password = password;
-		this.roles = roles;
-	}
-	
-
-	public Collection<PasswordEntries> getPasswordEntries() {
-		return passwordEntries;
-	}
-
-	public void setPasswordEntries(Collection<PasswordEntries> passwordEntries) {
-		this.passwordEntries = passwordEntries;
-	}
-	
-	public UUID getId() {
-		return id;
-	}
-
-	public void setId(UUID id) {
-		this.id = id;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	
+		
 	
 }
